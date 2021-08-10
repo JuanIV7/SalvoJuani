@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static java.util.stream.Collectors.toList;
-
 @Entity
 public class GamePlayer {
 
@@ -46,7 +44,7 @@ public class GamePlayer {
     public Map<String,Object> makeGameplayersDTO(){
         Map<String,Object> dto= new LinkedHashMap<>();
         dto.put("id", this.getId());
-        dto.put("email", this.getPlayerid().makePlayerDTO());
+        dto.put("player", this.getPlayerid().makePlayerDTO());
         return dto;
     }
 
