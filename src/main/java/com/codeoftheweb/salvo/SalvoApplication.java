@@ -14,15 +14,15 @@ public class SalvoApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(PlayerRepository basededatosjugador , GameRepository basededatosjuego, GamePlayerRepository basededatosgp ){return (args) -> {
+	public CommandLineRunner initData(PlayerRepository playerRepository , GameRepository gameRepository, GamePlayerRepository gameplayerRepository ){return (args) -> {
 			Player player1 = new Player("juanivillalba@outlook.com");
 			Player player2 = new Player("lionelmessi@gmail.com");
 			Player player3 = new Player("villabajuani@outlook.com");
 		    Player player4 = new Player("villabajuani@outlook.com");
-            basededatosjugador.save(player1);
-            basededatosjugador.save(player2);
-    		basededatosjugador.save(player3);
-    		basededatosjugador.save(player4);
+            playerRepository.save(player1);
+            playerRepository.save(player2);
+    		playerRepository.save(player3);
+    		playerRepository.save(player4);
 
 		    Game game1 = new Game(LocalDateTime.now());
 		    Game game2 = new Game(LocalDateTime.now().plusHours(1));
@@ -30,12 +30,12 @@ public class SalvoApplication {
 		    Game game4 = new Game(LocalDateTime.now().plusHours(3));
 		    Game game5 = new Game(LocalDateTime.now().plusHours(4));
 		    Game game6 = new Game(LocalDateTime.now().plusHours(5));
-            basededatosjuego.save(game1);
-		    basededatosjuego.save(game2);
-		    basededatosjuego.save(game3);
-		    basededatosjuego.save(game4);
-		    basededatosjuego.save(game5);
-		    basededatosjuego.save(game6);
+            gameRepository.save(game1);
+		    gameRepository.save(game2);
+		    gameRepository.save(game3);
+		    gameRepository.save(game4);
+		    gameRepository.save(game5);
+		    gameRepository.save(game6);
 
 		    GamePlayer gameplayer1 = new GamePlayer(player1, game1, LocalDateTime.now());
 		    GamePlayer gameplayer2 = new GamePlayer(player2, game1, LocalDateTime.now());
@@ -49,17 +49,17 @@ public class SalvoApplication {
 		    GamePlayer gameplayer10 = new GamePlayer(player1, game5, LocalDateTime.now());
 		    GamePlayer gameplayer11 = new GamePlayer(player4, game6, LocalDateTime.now());
 
-		    basededatosgp.save(gameplayer1);
-		    basededatosgp.save(gameplayer2);
-		    basededatosgp.save(gameplayer3);
-		    basededatosgp.save(gameplayer4);
-		    basededatosgp.save(gameplayer5);
-		    basededatosgp.save(gameplayer6);
-		    basededatosgp.save(gameplayer7);
-		    basededatosgp.save(gameplayer8);
-		    basededatosgp.save(gameplayer9);
-		    basededatosgp.save(gameplayer10);
-		    basededatosgp.save(gameplayer11);
+		    gameplayerRepository.save(gameplayer1);
+		    gameplayerRepository.save(gameplayer2);
+		    gameplayerRepository.save(gameplayer3);
+		    gameplayerRepository.save(gameplayer4);
+		    gameplayerRepository.save(gameplayer5);
+		    gameplayerRepository.save(gameplayer6);
+		    gameplayerRepository.save(gameplayer7);
+		    gameplayerRepository.save(gameplayer8);
+		    gameplayerRepository.save(gameplayer9);
+		    gameplayerRepository.save(gameplayer10);
+		    gameplayerRepository.save(gameplayer11);
  		};
 	}
 }

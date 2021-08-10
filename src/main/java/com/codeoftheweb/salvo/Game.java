@@ -3,7 +3,9 @@ package com.codeoftheweb.salvo;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
@@ -29,6 +31,19 @@ public class Game {
 
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public Long getId() {return id;}
+
+    public void setId(Long id) {this.id = id;}
+
+    public Map<String,Object> makeGameDTO(){
+        Map<String,Object> dto= new LinkedHashMap<>();
+        dto.put("id", this.getId());
+        dto.put("created", this.getCreationDate());
+        dto.put("gamePlayers", this.getGameplayers()
+                .stream().map(gameplayers -> gameplayers.makeGameplayersDTO()).collect(toList()));
+        return dto;
     }
 
     public Set<GamePlayer> getGameplayers() {
