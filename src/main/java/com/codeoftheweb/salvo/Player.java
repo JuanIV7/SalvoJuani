@@ -23,33 +23,19 @@ public class Player {
 
     public Player() { }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() {return id;}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) {this.id = id;}
 
-    public Player(String userName) {
-        this.userName = userName;
-    }
+    public Player(String userName) {this.userName = userName;}
 
-    public String getUserName() {
-        return userName;
-    }
+    public String getUserName() {return userName;}
 
-    public Set<GamePlayer> getGameplayers() {
-        return gameplayers;
-    }
+    public Set<GamePlayer> getGameplayers() {return gameplayers;}
 
-    public void setGameplayers(Set<GamePlayer> gameplayers) {
-        this.gameplayers = gameplayers;
-    }
+    public void setGameplayers(Set<GamePlayer> gameplayers) {this.gameplayers = gameplayers;}
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+    public void setUserName(String userName) {this.userName = userName;}
 
     public Map<String,Object> makePlayerDTO(){
         Map<String,Object> dto= new LinkedHashMap<>();

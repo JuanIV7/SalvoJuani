@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class GamePlayer {
@@ -27,6 +29,9 @@ public class GamePlayer {
     @JoinColumn(name="game_id")
     private Game gameid;
 
+    @OneToMany(mappedBy = "gamePlayerID", fetch=FetchType.EAGER)
+    Set<Ship> ships;
+
     public GamePlayer() { }
 
     public Game getGameid() {return gameid;}
@@ -45,10 +50,23 @@ public class GamePlayer {
         Map<String,Object> dto= new LinkedHashMap<>();
         dto.put("id", this.getId());
         dto.put("player", this.getPlayerid().makePlayerDTO());
+        dto.put("ship", this.getShips().stream().map(xx -> xx.makeShipDTO()).collect(Collectors.toList()));
         return dto;
     }
 
     public Long getId() {return id;}
-
     public void setId(Long id) {this.id = id;}
+
+    public Set<Ship> getShips() {
+        return ships;
+    }
+
+    public void setShips(Set<Ship> ships) {
+        this.ships = ships;
+    }
+
+    //@JsonIgnore
+    //public List<Ship> getShips() {
+    //    return ships.stream().map(gamePlayer -> gamePlayer.getShips()).collect(toList());
+    //}
 }

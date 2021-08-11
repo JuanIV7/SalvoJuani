@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @SpringBootApplication
 public class SalvoApplication {
@@ -14,7 +15,7 @@ public class SalvoApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(PlayerRepository playerRepository , GameRepository gameRepository, GamePlayerRepository gameplayerRepository ){return (args) -> {
+	public CommandLineRunner initData(PlayerRepository playerRepository , GameRepository gameRepository, GamePlayerRepository gameplayerRepository, ShipRepository shipRepository ){return (args) -> {
 			Player player1 = new Player("juanivillalba@outlook.com");
 			Player player2 = new Player("lionelmessi@gmail.com");
 			Player player3 = new Player("villabajuani@outlook.com");
@@ -60,6 +61,17 @@ public class SalvoApplication {
 		    gameplayerRepository.save(gameplayer9);
 		    gameplayerRepository.save(gameplayer10);
 		    gameplayerRepository.save(gameplayer11);
+
+		    Ship ship1 = new Ship(gameplayer1,"Carrier", Arrays.asList("H1","H2","H3","H4","H5"));
+			Ship ship2 = new Ship(gameplayer1,"Battleship", Arrays.asList("H1","H2","H3","H4"));
+			Ship ship3 = new Ship(gameplayer1,"Cruiser", Arrays.asList("H1","H2","H3"));
+			Ship ship4 = new Ship(gameplayer1,"Submarine", Arrays.asList("H1","H2","H3"));
+			Ship ship5 = new Ship(gameplayer1,"Destroyer", Arrays.asList("H1","H2"));
+		    shipRepository.save(ship1);
+			shipRepository.save(ship2);
+			shipRepository.save(ship3);
+			shipRepository.save(ship4);
+			shipRepository.save(ship5);
  		};
 	}
 }
