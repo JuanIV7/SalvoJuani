@@ -23,12 +23,12 @@ public class Ship {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="gamePlayer_id")
-    private GamePlayer gamePlayerID;
+    private GamePlayer gamePlayer;
 
     public Ship() {}
 
-    public Ship(GamePlayer gamePlayerID, String type, List<String> shipLocation) {
-        this.gamePlayerID = gamePlayerID;
+    public Ship(GamePlayer gamePlayer, String type, List<String> shipLocation) {
+        this.gamePlayer = gamePlayer;
         this.type = type;
         this.shipLocation = shipLocation;
     }
@@ -49,8 +49,8 @@ public class Ship {
     public String getType() {return type;}
     public void setType(String type) {this.type = type;}
 
-    public GamePlayer getGamePlayerID() {return gamePlayerID;}
-    public void setGamePlayerID(GamePlayer gamePlayerID) {this.gamePlayerID = gamePlayerID;}
+    public GamePlayer getGamePlayer() {return gamePlayer;}
+    public void setGamePlayer(GamePlayer gamePlayer) {this.gamePlayer = gamePlayer;}
 
     //@JsonIgnore
     //public List<GamePlayer> getGamePlayers() {
