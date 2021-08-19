@@ -9,46 +9,46 @@ import java.util.List;
 import java.util.Map;
 
 @Entity
-public class Ship {
+public class Salvo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name="native", strategy="native")
     private Long id;
-    private String type;
+    private int turn;
 
     @ElementCollection
     @Column(name="")
-    private List<String> shipLocation = new ArrayList<>();
+    private List<String> salvoLocation = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="gamePlayer_id")
     private GamePlayer gamePlayer;
 
-    public Ship() {}
+    public Salvo() {}
 
-    public Ship(GamePlayer gamePlayer, String type, List<String> shipLocation) {
+    public Salvo(GamePlayer gamePlayer, int turn, List<String> salvoLocation) {
         this.gamePlayer = gamePlayer;
-        this.type = type;
-        this.shipLocation = shipLocation;
+        this.turn = turn;
+        this.salvoLocation = salvoLocation;
     }
 
-    public Map<String, Object> makeShipDTO(){
+    public Map<String, Object> makeSalvoDTO(){
         Map<String,Object> dto=new LinkedHashMap<>();
-        dto.put("type", this.getType());
-        dto.put("locations", this.getShipLocation());
+        dto.put("turn", this.getTurn());
+        dto.put("player", this.getGamePlayer().getPlayer().getId());
+        dto.put("locations", this.getSalvoLocation());
         return dto;
     }
 
-
-    public List<String> getShipLocation() {return shipLocation;}
-    public void setShipLocation(List<String> shipLocation) {this.shipLocation = shipLocation;}
+    public List<String> getSalvoLocation() {return salvoLocation;}
+    public void setSalvoLocation(List<String> salvoLocation) {this.salvoLocation = salvoLocation;}
 
     public Long getId() {return id;}
     public void setId(Long id) {this.id = id;}
 
-    public String getType() {return type;}
-    public void setType(String type) {this.type = type;}
+    public int getTurn() {return turn;}
+    public void setTurn(int turn) {this.turn = turn;}
 
     public GamePlayer getGamePlayer() {return gamePlayer;}
     public void setGamePlayer(GamePlayer gamePlayer) {this.gamePlayer = gamePlayer;}
