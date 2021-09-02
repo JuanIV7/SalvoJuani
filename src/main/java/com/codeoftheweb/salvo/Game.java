@@ -49,7 +49,7 @@ public class Game {
             if(gamePlayer.getScore().isPresent()){
                 return gamePlayer.getScore().get().makeScoreDTO();}
             else{
-                return null;}
+                return "";}
         }));
         return dto;
     }
