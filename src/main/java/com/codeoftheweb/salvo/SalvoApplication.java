@@ -80,38 +80,42 @@ public class SalvoApplication {
 		    gameplayerRepository.save(gameplayer10);
 		    gameplayerRepository.save(gameplayer11);
 
-		    Ship ship1 = new Ship(gameplayer1,"Carrier", Arrays.asList("H1","H2","H3","H4","H5"));
-			Ship ship2 = new Ship(gameplayer1,"Battleship", Arrays.asList("G1","G2","G3","G4"));
-			Ship ship3 = new Ship(gameplayer1,"Cruiser", Arrays.asList("A1","A2","A3"));
-			Ship ship4 = new Ship(gameplayer1,"Submarine", Arrays.asList("B1","B2","B3"));
-			Ship ship5 = new Ship(gameplayer1,"Destroyer", Arrays.asList("D1","C1"));
-			Ship ship6 = new Ship(gameplayer2,"Destroyer", Arrays.asList("D3","C3"));
+		    Ship ship1 = new Ship(gameplayer1,"carrier", Arrays.asList("A1","A2","A3","A4","A5"));
+			Ship ship2 = new Ship(gameplayer1,"battleship", Arrays.asList("B1","B2","B3","B4"));
+			Ship ship3 = new Ship(gameplayer1,"submarine", Arrays.asList("C1","C2","C3"));
+			Ship ship4 = new Ship(gameplayer1,"patrolboat", Arrays.asList("D1","D2"));
+			Ship ship5 = new Ship(gameplayer1,"destroyer", Arrays.asList("E1","E2","E3"));
+
+			Ship ship6 = new Ship(gameplayer2,"destroyer", Arrays.asList("B3","C3","D3"));
+			Ship ship7 = new Ship(gameplayer2,"carrier", Arrays.asList("E1","E2","E3","E4","E5"));
+			Ship ship8 = new Ship(gameplayer2,"battleship", Arrays.asList("F1","F2","F3","F4"));
+			Ship ship9 = new Ship(gameplayer2,"patrolboat", Arrays.asList("G1","G2"));
+			Ship ship10 = new Ship(gameplayer2,"submarine", Arrays.asList("A1","B1","C1"));
 		    shipRepository.save(ship1);
 			shipRepository.save(ship2);
 			shipRepository.save(ship3);
 			shipRepository.save(ship4);
 			shipRepository.save(ship5);
 			shipRepository.save(ship6);
+			shipRepository.save(ship7);
+			shipRepository.save(ship8);
+			shipRepository.save(ship9);
+			shipRepository.save(ship10);
 
-			Salvo salvo1 = new Salvo(gameplayer1, 1, Arrays.asList("E1","E2"));
-			Salvo salvo2 = new Salvo(gameplayer2, 1, Arrays.asList("G1","G2","G3","G4","G5"));
-			Salvo salvo3 = new Salvo(gameplayer1, 2, Arrays.asList("A5"));
+			Salvo salvo1 = new Salvo(gameplayer1, 1, Arrays.asList("E1","F1","G1","D1","B5"));
+			Salvo salvo2 = new Salvo(gameplayer1, 2, Arrays.asList("A1","A2","A4","A5","A6"));
+			Salvo salvo3 = new Salvo(gameplayer1, 3, Arrays.asList("E1","F1","G1","D1","B5"));
+//			Salvo salvo4 = new Salvo(gameplayer1, 4, Arrays.asList("A1","A2","A4","A5","A6"));
+			Salvo salvo5 = new Salvo(gameplayer2, 1, Arrays.asList("A1","A2","A3","A4","A5"));
+			Salvo salvo6 = new Salvo(gameplayer2, 2, Arrays.asList("B1","B2","B3","B4","C1"));
+			Salvo salvo7 = new Salvo(gameplayer2, 3, Arrays.asList("C2","C3","D1","D2","E1"));
+//			Salvo salvo8 = new Salvo(gameplayer2, 4, Arrays.asList("E2","E3"));
 			salvoRepository.save(salvo1);
 			salvoRepository.save(salvo2);
 			salvoRepository.save(salvo3);
-
-			Score score1 = new Score(1f, LocalDateTime.now(), game1, player1);
-			Score score2 = new Score(0f, LocalDateTime.now(), game1, player2);
-			Score score3 = new Score(0.5f, LocalDateTime.now(), game2, player1);
-			Score score4 = new Score(0.5f, LocalDateTime.now(), game2, player2);
-			Score score5 = new Score(0.5f, LocalDateTime.now(), game5, player1);
-			Score score6 = new Score(0.5f, LocalDateTime.now(), game5, player3);
-			scoreRepository.save(score1);
-			scoreRepository.save(score2);
-			scoreRepository.save(score3);
-			scoreRepository.save(score4);
-			scoreRepository.save(score5);
-			scoreRepository.save(score6);
+			salvoRepository.save(salvo5);
+			salvoRepository.save(salvo6);
+			salvoRepository.save(salvo7);
 	};
 	}
 	@Bean
@@ -150,9 +154,18 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/api/game_view/**").hasAuthority("PLAYER")
-				.antMatchers("/web/games.html").permitAll()
-				.antMatchers("/api/games").permitAll();
+				.antMatchers("/api/login").permitAll()
+				.antMatchers("/api/players").permitAll()
+				.antMatchers("/web/**").permitAll()
+				.antMatchers("/api/games").permitAll()
+				.antMatchers("/h2-console/**").permitAll()
+				.and().headers().frameOptions().disable()
+				.and().csrf().ignoringAntMatchers("/h2-console/**")
+				.and().cors().disable()
+		;
+
+		http.authorizeRequests().
+				antMatchers("/api/game_view/**").hasAuthority("PLAYER");
 
 		http.formLogin()
 				.usernameParameter("name")
